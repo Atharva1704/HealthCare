@@ -6,6 +6,8 @@ import "./Node.css";
 const handleStyle = { left: 10 };
 
 function PatientHeartRate({ data }) {
+    console.log("Heart Rate");
+
     const [heartRate, setHeartRate] = useState(data.value || ''); // Default value
 
     // Options for heart rate ranges

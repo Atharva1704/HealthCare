@@ -1,53 +1,75 @@
 import { Handle, Position } from '@xyflow/react';
 import { useState, useEffect } from 'react';
 import "../PatientInfoNode/Node.css"
-
 function getUrgencyRanking(patientAge, patientHeartRate, patientSymptom, patientSeverity, patientWaitTime) {
     let urgency = "Low"; // Default value
 
+    if (patientWaitTime) {
+        const waitTime = parseInt(patientWaitTime);
+        console.log("Waittime", patientWaitTime);
+        if (patientWaitTime === "over_30") {
+            urgency = "Urgent"; // Always urgent if wait time > 30 mins
+            return urgency;
+        }
+    }
     // Heart Rate logic
     if (patientHeartRate) {
+        // If heart rate is less than 40 or more than 100, it's urgent
         if (patientHeartRate === '<40' || patientHeartRate === '>100') {
             urgency = "Urgent";
-        } else if (patientHeartRate === '40-60' || patientHeartRate === '60-100') {
-            urgency = "Low";
+            return urgency;
+        }
+        // If heart rate is between 40-60 or 60-100, it's low urgency
+        else if (patientHeartRate === '40-60' || patientHeartRate === '60-100') {
+            if (urgency === "Low") urgency = "Low"; // Maintain low urgency unless overridden
+        }
+        // Additional heart rate check for rates between 60-80
+        else if (patientHeartRate === '60-80') {
+            urgency = "Medium";
         }
     }
 
     // Age logic
     if (patientAge) {
-        if (parseInt(patientAge) < 12 || parseInt(patientAge) > 75) {
-            urgency = "Urgent";
+        const age = parseInt(patientAge);
+        if (age < 12) {
+            urgency = "Medium"; // Children are moderate urgency
+        } else if (age > 75) {
+            urgency = "Urgent"; // Elderly patients are urgent
         }
     }
 
     // Symptom severity logic
     if (patientSymptom) {
         const severeSymptoms = ["Chest pain", "Severe headache", "Difficulty breathing"];
+        const moderateSymptoms = ["Mild headache", "Back pain", "Fatigue"];
+
+        // Severe symptoms are always urgent
         if (severeSymptoms.includes(patientSymptom)) {
             urgency = "Urgent";
+        }
+        // Moderate symptoms are medium urgency
+        else if (moderateSymptoms.includes(patientSymptom)) {
+            urgency = urgency === "Low" ? "Medium" : urgency; // Promote to medium if not urgent
         }
     }
 
     // Severity level logic
     if (patientSeverity) {
         if (patientSeverity === "High") {
-            urgency = "Urgent";
+            urgency = "Urgent"; // High severity is always urgent
+            return urgency;
         } else if (patientSeverity === "Medium") {
-            urgency = "Low";
+            urgency = urgency === "Low" ? "Medium" : urgency; // Promote to medium if not urgent
         }
     }
 
-    // Wait time logic
-    if (patientWaitTime) {
-        const waitTime = parseInt(patientWaitTime);
-        if (waitTime > 30) {
-            urgency = "Urgent";
-        }
-    }
+    // Wait time logic - This logic overrides everything
 
+    console.log("Urgency is: ", urgency);
     return urgency;
 }
+
 
 const handleStyle = { left: 10 };
 
@@ -59,6 +81,7 @@ function Prediction({ data }) {
     const patientSeverity = localStorage.getItem('patientSeverity');
 
     const patientWaitTime = localStorage.getItem('patientWaitTime');
+    console.log({ patientAge, patientHeartRate, patientSymptom, patientSeverity, patientWaitTime });
     const urgency = getUrgencyRanking(patientAge, patientHeartRate, patientSymptom, patientSeverity, patientWaitTime);
 
     // Combine retrieved values into a comma-separated string

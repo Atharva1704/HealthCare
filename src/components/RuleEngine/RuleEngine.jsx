@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback, useState } from 'react';
 import {
     ReactFlow,
     addEdge,
@@ -92,11 +92,6 @@ function RuleEngine() {
         );
     }, [nodes, edges, setNodes]);
 
-    // Use useEffect to automatically update Prediction when nodes or edges change
-    useEffect(() => {
-        aggregateNodeData();
-    }, [nodes, edges, aggregateNodeData]);
-
     const onNodesChanges = useCallback(
         (changes) => {
             setNodes((nds) => applyNodeChanges(changes, nds));
@@ -134,6 +129,11 @@ function RuleEngine() {
                 <MiniMap />
                 <Background variant="dots" gap={12} size={1} />
             </ReactFlow>
+
+            {/* Button to trigger data aggregation */}
+            <button className="aggregate-button" onClick={aggregateNodeData}>
+                Check Urgency
+            </button>
         </div>
     );
 }

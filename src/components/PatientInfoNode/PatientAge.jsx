@@ -5,6 +5,8 @@ import "./Node.css"; // Import the custom CSS file
 const handleStyle = { left: 10 };
 
 function PatientAge({ data }) {
+    console.log("Age");
+
     const [age, setAge] = useState(''); // Initially empty state
 
     const onChange = useCallback((evt) => {

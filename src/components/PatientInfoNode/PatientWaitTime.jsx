@@ -5,6 +5,7 @@ import "./Node.css";  // Custom CSS
 const handleStyle = { left: 10 };
 
 function PatientWaitTime({ data }) {
+    console.log("Wait time");
     const [waitTime, setWaitTime] = useState(data.value || 'less_than_5'); // Default value
 
     // Wait time options

@@ -5,6 +5,8 @@ import "./Node.css";
 const handleStyle = { left: 10 };
 
 function PatientSymptom({ data }) {
+    console.log("Symptom");
+
     const [symptom, setSymptom] = useState(''); // Start with empty string
     const [severity, setSeverity] = useState('Mild'); // Default severity level
 
