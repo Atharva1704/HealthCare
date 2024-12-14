@@ -7,10 +7,9 @@ const handleStyle = { left: 10 };
 function PatientSymptom({ data }) {
     console.log("Symptom");
 
-    const [symptom, setSymptom] = useState(''); // Start with empty string
-    const [severity, setSeverity] = useState('Mild'); // Default severity level
+    const [symptom, setSymptom] = useState(''); 
+    const [severity, setSeverity] = useState('Mild'); 
 
-    // Problem categories for selection
     const symptomsList = [
         'Heart Pain',
         'Headache',
@@ -20,35 +19,32 @@ function PatientSymptom({ data }) {
         'Shortness of Breath'
     ];
 
-    // Severity levels
     const severityLevels = ['Mild', 'Moderate', 'Severe'];
 
-    // Save the updated symptom and severity values to localStorage
     const onSymptomChange = useCallback((evt) => {
         const selectedSymptom = evt.target.value;
         setSymptom(selectedSymptom);
-        localStorage.setItem('patientSymptom', selectedSymptom); // Save to localStorage
-        console.log("Symptom Changed:", selectedSymptom); // Debug log
+        localStorage.setItem('patientSymptom', selectedSymptom); 
+        console.log("Symptom Changed:", selectedSymptom); 
     }, []);
 
     const onSeverityChange = useCallback((evt) => {
         const selectedSeverity = evt.target.value;
         setSeverity(selectedSeverity);
-        localStorage.setItem('patientSeverity', selectedSeverity); // Save to localStorage
-        console.log("Severity Changed:", selectedSeverity); // Debug log
+        localStorage.setItem('patientSeverity', selectedSeverity); 
+        console.log("Severity Changed:", selectedSeverity); 
     }, []);
 
     useEffect(() => {
-        // Initialize symptom and severity from localStorage (if available)
         const savedSymptom = localStorage.getItem('patientSymptom');
         const savedSeverity = localStorage.getItem('patientSeverity');
         if (savedSymptom) {
-            setSymptom(savedSymptom); // Set symptom state from localStorage
+            setSymptom(savedSymptom); 
         }
         if (savedSeverity) {
-            setSeverity(savedSeverity); // Set severity state from localStorage
+            setSeverity(savedSeverity); 
         }
-        console.log("Loaded from localStorage - Symptom:", savedSymptom, "Severity:", savedSeverity); // Debug log
+        console.log("Loaded from localStorage - Symptom:", savedSymptom, "Severity:", savedSeverity); 
     }, []);
 
     return (
@@ -57,8 +53,8 @@ function PatientSymptom({ data }) {
                 <label htmlFor="symptom">Patient Symptoms</label>
                 <select
                     id="symptom"
-                    value={symptom} // Bind to symptom state
-                    onChange={onSymptomChange} // Update symptom state on change
+                    value={symptom} 
+                    onChange={onSymptomChange} 
                 >
                     <option value="">None</option>
                     {symptomsList.map((symptom, index) => (
@@ -73,8 +69,8 @@ function PatientSymptom({ data }) {
                 <label htmlFor="severity">Severity Level</label>
                 <select
                     id="severity"
-                    value={severity} // Bind to severity state
-                    onChange={onSeverityChange} // Update severity state on change
+                    value={severity} 
+                    onChange={onSeverityChange}
                 >
                     {severityLevels.map((level, index) => (
                         <option key={index} value={level}>

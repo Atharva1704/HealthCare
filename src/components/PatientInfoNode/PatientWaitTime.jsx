@@ -1,14 +1,13 @@
 import { useCallback, useState, useEffect } from 'react';
 import { Handle, Position } from '@xyflow/react';
-import "./Node.css";  // Custom CSS
+import "./Node.css";  
 
 const handleStyle = { left: 10 };
 
 function PatientWaitTime({ data }) {
     console.log("Wait time");
-    const [waitTime, setWaitTime] = useState(data.value || 'less_than_5'); // Default value
+    const [waitTime, setWaitTime] = useState(data.value || 'less_than_5'); 
 
-    // Wait time options
     const waitTimeOptions = [
         { label: 'Less than 5 mins', value: 'less_than_5' },
         { label: '5 to 10 mins', value: '5_to_10' },
@@ -17,16 +16,13 @@ function PatientWaitTime({ data }) {
         { label: 'Over 30 mins', value: 'over_30' },
     ];
 
-    // Handle change in wait time selection
     const onWaitTimeChange = useCallback((evt) => {
         const selectedValue = evt.target.value;
-        setWaitTime(selectedValue); // Update state
-        // Save the selected value to localStorage
+        setWaitTime(selectedValue); 
         localStorage.setItem('patientWaitTime', selectedValue);
     }, []);
 
     useEffect(() => {
-        // Initialize from localStorage if available
         const savedWaitTime = localStorage.getItem('patientWaitTime');
         if (savedWaitTime) setWaitTime(savedWaitTime);
     }, []);

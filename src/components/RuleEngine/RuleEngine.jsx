@@ -69,7 +69,6 @@ function RuleEngine() {
     const [nodes, setNodes, onNodesChange] = useNodesState(defaultNodes);
     const [edges, setEdges, onEdgesChange] = useEdgesState(defaultEdges);
 
-    // Aggregate data from all connected nodes
     const aggregateNodeData = useCallback(() => {
         const predictionNode = nodes.find((node) => node.type === 'Prediction');
         if (!predictionNode) return;
@@ -80,7 +79,7 @@ function RuleEngine() {
 
         const aggregatedData = connectedNodeIds
             .map((nodeId) => nodes.find((node) => node.id === nodeId)?.data.value)
-            .filter(Boolean) // Exclude undefined values
+            .filter(Boolean) 
             .join(', ');
 
         setNodes((nds) =>
@@ -118,8 +117,8 @@ function RuleEngine() {
             <ReactFlow
                 nodes={nodes}
                 edges={edges}
-                onNodesChange={onNodesChanges}
-                onEdgesChange={onEdgesChanges}
+                onNodesChange={onNodesChange}
+                onEdgesChange={onEdgesChange}
                 onConnect={onConnect}
                 nodeTypes={nodeTypes}
                 fitView
@@ -129,8 +128,6 @@ function RuleEngine() {
                 <MiniMap />
                 <Background variant="dots" gap={12} size={1} />
             </ReactFlow>
-
-            {/* Button to trigger data aggregation */}
             <button className="aggregate-button" onClick={aggregateNodeData}>
                 Check Urgency
             </button>

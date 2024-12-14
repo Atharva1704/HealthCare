@@ -1,19 +1,15 @@
 import { useCallback, useState, useEffect } from 'react';
 import { Handle, Position } from '@xyflow/react';
-import "./Node.css"; // Import the custom CSS file
-
-const handleStyle = { left: 10 };
+import "./Node.css";
 
 function PatientAge({ data }) {
     console.log("Age");
 
-    const [age, setAge] = useState(''); // Initially empty state
+    const [age, setAge] = useState('');
 
     const onChange = useCallback((evt) => {
         const newAge = evt.target.value;
-        setAge(newAge); // Update the state with the new value
-
-        // Save the updated value to localStorage
+        setAge(newAge);
         localStorage.setItem('patientAge', newAge);
     }, []);
 
@@ -21,13 +17,12 @@ function PatientAge({ data }) {
         <div className='glassmorphism'>
             <div className="form-group">
                 <label htmlFor="age">Patient Age:</label>
-                {/* Replace the Material-UI TextField with a standard HTML input */}
                 <input
                     id="age"
-                    type="number" // Age input should be a number
+                    type="number"
                     placeholder="Enter age"
-                    value={age}  // Bind input value to state
-                    onChange={onChange}  // Handle input change
+                    value={age}
+                    onChange={onChange}
                     className="input-field"
                 />
             </div>
