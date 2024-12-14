@@ -1,0 +1,92 @@
+.glassmorphism {
+    background: rgba(255, 255, 255, 0.1); /* Semi-transparent white background */
+    backdrop-filter: blur(10px); /* Apply a blur effect to the background */
+    border-radius: 15px; /* Rounded corners */
+    padding: 30px; /* Padding inside the div */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border */
+    color: white; /* Text color */
+    max-width: 400px; /* Max width for the div */
+    margin: 50px auto; /* Center the div */
+    text-align: center; /* Center the text */
+    width: 15vw;
+    /* height: 10vh; */
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+    display: block;
+}
+
+select {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+    color: #333;
+    appearance: none;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+}
+
+select:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+option {
+    padding: 10px;
+}
+
+option:hover {
+    background-color: #f0f0f0;
+}
+
+select:focus option:hover {
+    background-color: #d3e0f0;
+}
+
+/* Style for the input field */
+.input-field {
+    width: 80%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+    color: #333;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+/* Focus style for the input field */
+.input-field:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* Placeholder style */
+.input-field::placeholder {
+    color: #888;
+}
+
+/* Style for the handle (bottom handle) */
+.handle {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 16px;
+    height: 16px;
+    background-color: #007bff;
+    border-radius: 50%;
+}
